@@ -1224,6 +1224,7 @@ def admin_menu():
 
 @app.route("/admin/menu/save", methods=["POST"])
 def admin_menu_save():
+    global DELIVERY_FEE, FREE_DELIVERY_MIN, BATCH_INTERVAL_MIN, BUSINESS_HOURS
     if request.cookies.get("admin_auth") != ADMIN_PASSWORD:
         return jsonify({"error": "unauthorized"}), 401
     data = request.get_json()
@@ -1235,8 +1236,6 @@ def admin_menu_save():
         "hour_start": data.get("hour_start", BUSINESS_HOURS["start"]),
         "hour_end": data.get("hour_end", BUSINESS_HOURS["end"]),
     })
-    # 更新全域變數
-    global DELIVERY_FEE, FREE_DELIVERY_MIN, BATCH_INTERVAL_MIN, BUSINESS_HOURS
     DELIVERY_FEE = data.get("delivery_fee", DELIVERY_FEE)
     FREE_DELIVERY_MIN = data.get("free_min", FREE_DELIVERY_MIN)
     BATCH_INTERVAL_MIN = data.get("batch_interval", BATCH_INTERVAL_MIN)
