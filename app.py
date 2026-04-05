@@ -50,10 +50,11 @@ BUSINESS_HOURS = {"start": 11, "end": 20}  # 11:00 ~ 20:00
 # ==========================================
 # 資料庫
 # ==========================================
-DB_PATH = "/data/orders.db"
+DATA_DIR = "/data" if os.path.isdir("/data") else os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
+DB_PATH = os.path.join(DATA_DIR, "orders.db")
 
 def get_db():
-    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+    os.makedirs(DATA_DIR, exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     return conn
