@@ -1,8 +1,8 @@
 [phases.setup]
-nixPkgs = ["python311"]
+nixPkgs = ["python311", "python311Packages.pip"]
 
 [phases.install]
-cmds = ["pip install -r requirements.txt"]
+cmds = ["python3 -m pip install -r requirements.txt"]
 
 [start]
-cmd = "PYTHONUNBUFFERED=1 gunicorn app:app --bind 0.0.0.0:$PORT --access-logfile -"
+cmd = "PYTHONUNBUFFERED=1 python3 -m gunicorn app:app --bind 0.0.0.0:$PORT --access-logfile -"
